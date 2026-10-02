@@ -1,0 +1,50 @@
+.fyp-radar-badge {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999999;
+  background: rgba(10, 14, 23, 0.85);
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 8px 14px;
+  border-radius: 50px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 242, 254, 0.25);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.fyp-radar-badge:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 242, 254, 0.4);
+  border-color: #00f2fe;
+}
+
+.fyp-badge-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fyp-icon {
+  font-size: 16px;
+  color: #00f2fe;
+}
+
+.fyp-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.2px;
+}
+
+.fyp-pill {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(0, 242, 254, 0.15);
+  color: #00f2fe;
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>TikTok FYP Radar</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <span class="icon">⚡</span>
+        <div>
+          <h3>FYP Radar</h3>
+          <span class="sub">Live Predictor</span>
+        </div>
+      </div>
+      <span class="status-dot online" id="statusDot" title="Backend Connected"></span>
+    </header>
+
+    <!-- Scan Button -->
+    <div class="scan-box">
+      <button id="btnScanTab" class="btn-scan">
+        <span>🔍 Scan Video di Tab Ini</span>
+      </button>
+      <div id="scanFeedback" class="scan-feedback">Buka video TikTok di tab aktif, lalu klik tombol di atas.</div>
+    </div>
+
+    <!-- Live Prediction HUD -->
+    <div class="hud-card" id="hudCard" style="display: none;">
+      <div class="gauge-wrap">
+        <div class="score-circle" id="scoreCircle">
+          <span class="score-number" id="scoreNumber">--%</span>
+          <span class="score-label">FYP CHANCE</span>
+        </div>
+      </div>
+
+      <div class="tier-pill" id="tierPill">ANALYZING</div>
+      <div class="potential-views" id="potentialViews">Estimasi: --</div>
+
+      <!-- Quick Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <span>Views</span>
+          <strong id="mViews">0</strong>
+        </div>
+        <div class="metric-item">
+          <span>Total ER</span>
+          <strong id="mEr">0%</strong>
+        </div>
+        <div class="metric-item">
+          <span>Reposts</span>
+          <strong id="mRepost">0%</strong>
+        </div>
+        <div class="metric-item">
+          <span>Saves</span>
+          <strong id="mSave">0%</strong>
+        </div>
+      </div>
+
+      <!-- Quick Diagnosis -->
+      <div class="diagnosis-note" id="diagnosisNote">
+        Menghitung sinyal algoritma...
+      </div>
+    </div>
+
+    <!-- Manual Quick Input Toggle -->
+    <details class="manual-section">
+      <summary>Input Manual / Uji Cepat</summary>
+      <div class="manual-form">
+        <input type="number" id="inpViews" placeholder="Views (misal: 10000)">
+        <input type="number" id="inpLikes" placeholder="Likes (misal: 1800)">
+        <input type="number" id="inpSaves" placeholder="Saves (misal: 450)">
+        <input type="number" id="inpReposts" placeholder="Reposts (misal: 150)">
+        <button id="btnCalcManual" class="btn-secondary">Hitung Skor</button>
+      </div>
+    </details>
+
+    <!-- Footer Links -->
+    <footer class="footer">
+      <a href="http://localhost:8000" target="_blank" class="footer-link">Buka Web Dashboard ↗</a>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaycee_AnalystFYP - Real-Time Dashboard</title>
+  <meta name="description" content="Kaycee_AnalystFYP: Sistem prediksi potensi FYP TikTok real-time berdasarkan machine learning & analisis empiris 400 video kreator top.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="dark-theme">
+  <!-- Glowing Background Orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Header / Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <span class="icon-pulse"></span>
+          ⚡
+        </div>
+        <div class="brand-text">
+          <h1>Kaycee_<span>AnalystFYP</span></h1>
+          <span class="brand-sub">Real-Time Predictive Engine v1.0</span>
+        </div>
+      </div>
+      <div class="nav-status">
+        <span class="status-indicator" id="apiStatusDot"></span>
+        <span class="status-label" id="apiStatusText">Engine Online</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="dashboard-wrapper">
+    <!-- Top Stats Banner -->
+    <section class="quick-stats-bar">
+      <div class="stat-pill">
+        <span class="pill-label">Dataset Baseline</span>
+        <span class="pill-val">400 Video Terverifikasi</span>
+      </div>
+      <div class="stat-pill">
+        <span class="pill-label">Golden Duration</span>
+        <span class="pill-val cyan">12s – 14s (+101% Boost)</span>
+      </div>
+      <div class="stat-pill">
+        <span class="pill-label">Benchmark ER</span>
+        <span class="pill-val magenta">~21.5% Median Niche</span>
+      </div>
+      <div class="stat-pill">
+        <span class="pill-label">Top Trigger</span>
+        <span class="pill-val green">Repost Rate > 1.5%</span>
+      </div>
+    </section>
+
+    <!-- Scanner Section -->
+    <section class="scanner-card glass-panel" id="scannerSection">
+      <div class="card-header">
+        <div class="header-tag">Live Scanner</div>
+        <h2>Analisis Link Video TikTok Secara Real-Time</h2>
+        <p>Masukkan link video TikTok untuk menarik metrik langsung dan memprediksi momentum FYP-nya.</p>
+      </div>
+
+      <form id="urlAnalyzeForm" class="scanner-form">
+        <div class="input-wrapper">
+          <span class="input-prefix">🔗</span>
+          <input 
+            type="url" 
+            id="tiktokUrlInput" 
+            placeholder="https://www.tiktok.com/@username/video/..." 
+            required
+            autocomplete="off"
+          />
+          <button type="submit" id="btnAnalyzeUrl" class="btn-primary">
+            <span class="btn-text">Analisis Video 🚀</span>
+            <div class="spinner" id="analyzeSpinner"></div>
+          </button>
+        </div>
+      </form>
+
+      <div class="sample-actions">
+        <span class="sample-label">Coba Contoh Cepat:</span>
+        <button type="button" class="btn-chip" id="btnSampleViral">🔥 Capitano Mega Viral (386k)</button>
+        <button type="button" class="btn-chip" id="btnSampleBreakout">📈 Emma x Arlecchino (341k)</button>
+        <button type="button" class="btn-chip" id="btnSampleFlop">🔴 Video Flop Tertahan (<5k)</button>
+      </div>
+    </section>
+
+    <!-- Prediction HUD Results (Dynamic) -->
+    <section class="results-hud-grid" id="resultsSection">
+      <!-- Left: Big Probability Gauge -->
+      <div class="glass-panel gauge-card">
+        <div class="card-eyebrow">FYP Probability Score</div>
+        <div class="gauge-container">
+          <svg class="gauge-svg" viewBox="0 0 200 200">
+            <circle class="gauge-bg" cx="100" cy="100" r="82"></circle>
+            <circle class="gauge-progress" id="gaugeCircle" cx="100" cy="100" r="82"></circle>
+          </svg>
+          <div class="gauge-center-content">
+            <div class="gauge-score" id="scoreDisplay">0%</div>
+            <div class="gauge-tier-badge" id="tierBadge">Menunggu Input</div>
+          </div>
+        </div>
+        <div class="potential-reach-card">
+          <span class="reach-label">Estimasi Potensi Jangkauan:</span>
+          <span class="reach-val" id="potentialViewsDisplay">-</span>
+        </div>
+      </div>
+
+      <!-- Right: Diagnostic Metrics & Multipliers -->
+      <div class="glass-panel diagnosis-card">
+        <div class="card-eyebrow">Algorithmic Diagnostic Breakdown</div>
+        <h3 id="resultSummaryText">Kirim link video atau gunakan simulator di bawah untuk melihat rincian diagnosa.</h3>
+        
+        <!-- Live Conversion Ratios Grid -->
+        <div class="ratios-grid">
+          <div class="ratio-box" id="boxRepost">
+            <div class="ratio-head">
+              <span>Repost Rate</span>
+              <span class="ratio-badge" id="badgeRepost">-</span>
+            </div>
+            <div class="ratio-value" id="valRepost">0.0%</div>
+            <div class="ratio-hint">Ambang FYP: > 1.5%</div>
+          </div>
+
+          <div class="ratio-box" id="boxSave">
+            <div class="ratio-head">
+              <span>Save Rate</span>
+              <span class="ratio-badge" id="badgeSave">-</span>
+            </div>
+            <div class="ratio-value" id="valSave">0.0%</div>
+            <div class="ratio-hint">Ambang FYP: > 4.5%</div>
+          </div>
+
+          <div class="ratio-box" id="boxLike">
+            <div class="ratio-head">
+              <span>Like Rate</span>
+              <span class="ratio-badge" id="badgeLike">-</span>
+            </div>
+            <div class="ratio-value" id="valLike">0.0%</div>
+            <div class="ratio-hint">Ambang FYP: > 18.0%</div>
+          </div>
+
+          <div class="ratio-box" id="boxTotalEr">
+            <div class="ratio-head">
+              <span>Total ER</span>
+              <span class="ratio-badge" id="badgeTotalEr">-</span>
+            </div>
+            <div class="ratio-value" id="valTotalEr">0.0%</div>
+            <div class="ratio-hint">Median Niche: 21.5%</div>
+          </div>
+        </div>
+
+        <!-- Multipliers Ribbon -->
+        <div class="multipliers-bar" id="multipliersBar">
+          <div class="mult-item" id="durMultItem">
+            <span class="mult-title">Durasi Multiplier:</span>
+            <span class="mult-score" id="durMultVal">1.0x</span>
+          </div>
+          <div class="mult-item" id="topicMultItem">
+            <span class="mult-title">Topik / Karakter:</span>
+            <span class="mult-score" id="topicMultVal">1.0x</span>
+          </div>
+          <div class="mult-item" id="audioMultItem">
+            <span class="mult-title">Audio / Beat:</span>
+            <span class="mult-score" id="audioMultVal">1.0x</span>
+          </div>
+        </div>
+
+        <!-- Actionable Recommendations -->
+        <div class="recommendations-box">
+          <h4>💡 Rekomendasi & Temuan Algoritma:</h4>
+          <ul id="recommendationList" class="rec-list">
+            <li>Menunggu data video untuk dievaluasi...</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Real-time Simulator Section -->
+    <section class="simulator-card glass-panel" id="simulatorSection">
+      <div class="card-header">
+        <div class="header-tag">Simulasi "What-If"</div>
+        <h2>Interactive Real-Time Score Simulator</h2>
+        <p>Geser nilai statistik di bawah untuk mensimulasikan probabilitas FYP pada video yang baru saja Anda upload.</p>
+      </div>
+
+      <div class="simulator-layout">
+        <!-- Sliders -->
+        <div class="sliders-col">
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="simViews">Total Views</label>
+              <span class="slider-val" id="simViewsVal">5,000</span>
+            </div>
+            <input type="range" id="simViews" min="500" max="50000" step="500" value="5000">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="simLikes">Likes</label>
+              <span class="slider-val" id="simLikesVal">850 (17.0%)</span>
+            </div>
+            <input type="range" id="simLikes" min="50" max="15000" step="50" value="850">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="simSaves">Saves (Favorites)</label>
+              <span class="slider-val" id="simSavesVal">280 (5.6%)</span>
+            </div>
+            <input type="range" id="simSaves" min="10" max="5000" step="10" value="280">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="simReposts">Reposts (Shares) 🔥</label>
+              <span class="slider-val" id="simRepostsVal">100 (2.0%)</span>
+            </div>
+            <input type="range" id="simReposts" min="5" max="2500" step="5" value="100">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="simDuration">Durasi Video (Detik)</label>
+              <span class="slider-val" id="simDurationVal">13s</span>
+            </div>
+            <input type="range" id="simDuration" min="8" max="40" step="1" value="13">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="simAge">Waktu Sejak Upload (Jam)</label>
+              <span class="slider-val" id="simAgeVal">2.0 Jam</span>
+            </div>
+            <input type="range" id="simAge" min="0.5" max="24" step="0.5" value="2">
+          </div>
+        </div>
+
+        <!-- Live Simulator Mini HUD -->
+        <div class="sim-hud-col">
+          <div class="sim-hud-card">
+            <div class="sim-hud-title">Simulated FYP Momentum</div>
+            <div class="sim-gauge-circle" id="simGaugeDisplay">
+              <span class="sim-score-num" id="simScoreDisplay">--%</span>
+              <span class="sim-score-tier" id="simTierDisplay">Calculated</span>
+            </div>
+            <div class="sim-metric-chips">
+              <div class="sim-chip">
+                <span>Total ER</span>
+                <strong id="simErText">24.6%</strong>
+              </div>
+              <div class="sim-chip">
+                <span>Velocity</span>
+                <strong id="simVelocityText">2.5k / jam</strong>
+              </div>
+            </div>
+            <p class="sim-advice-text" id="simAdviceText">Geser slider di samping untuk melihat dinamika algoritma.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-Account Benchmark Reference -->
+    <section class="benchmark-card glass-panel" id="benchmarkSection">
+      <div class="card-header">
+        <div class="header-tag">Empirical Data</div>
+        <h2>Benchmark Ekosistem 4 Kreator (400 Video)</h2>
+        <p>Formula prediksi ini dituning dan divalidasi langsung dari data historis kreator sesama niche.</p>
+      </div>
+
+      <div class="creators-grid">
+        <div class="creator-card">
+          <div class="creator-avatar">KC</div>
+          <div class="creator-info">
+            <h4>@kaycee.onw</h4>
+            <span class="creator-role">Akun Anda (Target Base)</span>
+          </div>
+          <div class="creator-stats">
+            <div><span>Median ER:</span> <strong>19.98%</strong></div>
+            <div><span>Median Repost:</span> <strong>1.14%</strong></div>
+            <div><span>Peak Views:</span> <strong>386.7k</strong></div>
+          </div>
+        </div>
+
+        <div class="creator-card">
+          <div class="creator-avatar">DW</div>
+          <div class="creator-info">
+            <h4>@dwrena</h4>
+            <span class="creator-role">Komunitas Peer</span>
+          </div>
+          <div class="creator-stats">
+            <div><span>Median ER:</span> <strong>23.57%</strong></div>
+            <div><span>Median Repost:</span> <strong>1.12%</strong></div>
+            <div><span>Peak Views:</span> <strong>701.4k</strong></div>
+          </div>
+        </div>
+
+        <div class="creator-card">
+          <div class="creator-avatar">RW</div>
+          <div class="creator-info">
+            <h4>@reinwi</h4>
+            <span class="creator-role">Komunitas Peer</span>
+          </div>
+          <div class="creator-stats">
+            <div><span>Median ER:</span> <strong>21.52%</strong></div>
+            <div><span>Median Repost:</span> <strong>1.09%</strong></div>
+            <div><span>Peak Views:</span> <strong>821.6k</strong></div>
+          </div>
+        </div>
+
+        <div class="creator-card">
+          <div class="creator-avatar">HY</div>
+          <div class="creator-info">
+            <h4>@hyutaoo</h4>
+            <span class="creator-role">Top Trendsetter</span>
+          </div>
+          <div class="creator-stats">
+            <div><span>Median ER:</span> <strong>21.82%</strong></div>
+            <div><span>Median Repost:</span> <strong>1.16%</strong></div>
+            <div><span>Peak Views:</span> <strong>6.6M</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Browser Extension Integration Section -->
+    <section class="extension-bridge-card glass-panel" id="extensionSection">
+      <div class="card-header">
+        <div class="header-tag">Browser Extension</div>
+        <h2>Integrasikan Langsung ke Browser Anda</h2>
+        <p>Ekstensi browser sudah kami siapkan di folder <code>extension/</code>. Anda bisa langsung memasangnya di Google Chrome / Microsoft Edge!</p>
+      </div>
+
+      <div class="extension-guide-grid">
+        <div class="guide-step">
+          <span class="step-num">1</span>
+          <h4>Buka Extensions</h4>
+          <p>Buka <code>chrome://extensions</code> atau <code>edge://extensions</code> di browser.</p>
+        </div>
+        <div class="guide-step">
+          <span class="step-num">2</span>
+          <h4>Developer Mode</h4>
+          <p>Aktifkan toggle <strong>Developer mode</strong> di pojok kanan atas.</p>
+        </div>
+        <div class="guide-step">
+          <span class="step-num">3</span>
+          <h4>Load Unpacked</h4>
+          <p>Klik <strong>Load unpacked</strong> dan pilih folder <code>tiktok_fyp_radar/extension</code>.</p>
+        </div>
+        <div class="guide-step">
+          <span class="step-num">4</span>
+          <h4>Real-Time Overlay</h4>
+          <p>Buka TikTok! Badge FYP Radar akan langsung muncul di video yang Anda tonton.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <p>© 2026 TikTok FYP Radar Engine • Dedicated Predictive Analytics for Creators</p>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

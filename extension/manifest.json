@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "TikTok FYP Radar Extension",
+  "version": "1.0.0",
+  "description": "Prediksi potensi FYP video TikTok secara real-time langsung di browser Anda.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.tiktok.com/*",
+    "http://localhost:8000/*",
+    "http://127.0.0.1:8000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "TikTok FYP Radar"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.tiktok.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ]
+}
