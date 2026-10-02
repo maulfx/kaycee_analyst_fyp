@@ -73,15 +73,9 @@ async def health_check():
 
 @app.get("/api/benchmarks")
 async def get_benchmarks():
-    """Return benchmark stats from the 4-creator ecosystem."""
+    """Return benchmark thresholds."""
     return {
         "benchmarks": BENCHMARKS,
-        "creators_summary": [
-            {"handle": "@kaycee.onw", "median_views": 13900, "er": 19.98, "repost": 1.14},
-            {"handle": "@dwrena", "median_views": 51900, "er": 23.57, "repost": 1.12},
-            {"handle": "@reinwi", "median_views": 40300, "er": 21.52, "repost": 1.09},
-            {"handle": "@hyutaoo", "median_views": 411150, "er": 21.82, "repost": 1.16},
-        ],
         "sweetspot_duration": "12s - 14s",
         "winning_sound_type": "Original Sound (Custom Beat)"
     }
@@ -152,4 +146,5 @@ if DASHBOARD_DIR.exists():
         if index_file.exists():
             return FileResponse(str(index_file))
         return {"message": "Dashboard index.html not found"}
+
 
