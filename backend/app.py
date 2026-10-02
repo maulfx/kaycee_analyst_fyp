@@ -1,8 +1,9 @@
-"""
+﻿"""
 FastAPI Backend for TikTok FYP Radar.
 Provides real-time prediction API for Web Dashboard & Chrome Extension.
 """
 
+import sys
 import os
 from pathlib import Path
 from fastapi import FastAPI, HTTPException
@@ -12,8 +13,17 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from typing import Optional
 
-from predictor_model import predict_fyp, BENCHMARKS
-from scraper import fetch_tiktok_video_stats
+# Ensure backend directory is in sys.path
+BACKEND_DIR = Path(__file__).resolve().parent
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(BACKEND_DIR))
+
+try:
+    from backend.predictor_model import predict_fyp, BENCHMARKS
+    from backend.scraper import fetch_tiktok_video_stats
+except ImportError:
+    from predictor_model import predict_fyp, BENCHMARKS
+    from scraper import fetch_tiktok_video_stats
 
 app = FastAPI(
     title="Kaycee_AnalystFYP API",
@@ -33,7 +43,7 @@ app.add_middleware(
 DASHBOARD_DIR = Path(__file__).resolve().parent.parent / "dashboard"
 
 
-# ─── Pydantic Request Models ──────────────────────────────────
+# â”€â”€â”€ Pydantic Request Models â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class ManualPredictRequest(BaseModel):
     views: int = Field(..., ge=0, description="Current total views")
     likes: int = Field(0, ge=0, description="Total likes")
@@ -50,7 +60,7 @@ class UrlAnalyzeRequest(BaseModel):
     url: str = Field(..., description="TikTok video URL (tiktok.com/@user/video/... or vt.tiktok.com/...)")
 
 
-# ─── API Routes ───────────────────────────────────────────────
+# â”€â”€â”€ API Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @app.get("/api/health")
 async def health_check():
     return {
@@ -132,7 +142,7 @@ async def analyze_tiktok_url(payload: UrlAnalyzeRequest):
     }
 
 
-# ─── Serve Web Dashboard ──────────────────────────────────────
+# â”€â”€â”€ Serve Web Dashboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 if DASHBOARD_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(DASHBOARD_DIR)), name="static")
 
@@ -142,3 +152,4 @@ if DASHBOARD_DIR.exists():
         if index_file.exists():
             return FileResponse(str(index_file))
         return {"message": "Dashboard index.html not found"}
+
