@@ -1,14 +1,13 @@
 """
 TikTok FYP Prediction Engine.
-Based on empirical statistical models derived from 400+ videos across 
-top gacha/anime edit creators (@kaycee.onw, @dwrena, @reinwi, @hyutaoo).
-Incorporates TikTok's multi-batch algorithmic distribution lifecycle (Batch 1 -> Batch 2 -> Batch 3 -> Freeze).
+Based on empirical statistical models and algorithmic distribution curves.
+Incorporates TikTok's multi-batch algorithmic distribution lifecycle (Batch 1 -> Batch 2 -> Batch 3 -> Mature).
 """
 
 import math
 from typing import Dict, Any, List, Tuple
 
-# Benchmarks learned from the 400-video dataset
+# Core empirical benchmarks for TikTok distribution
 BENCHMARKS = {
     "median_er": 21.5,
     "median_like_rate": 16.0,

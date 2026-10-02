@@ -1,7 +1,7 @@
 # ⚡ Kaycee_AnalystFYP - Real-Time TikTok Predictive Engine
 
 Sistem prediksi dan analisis potensi FYP video TikTok secara real-time, terpisah dari bot Telegram. Terdiri dari 3 komponen utama:
-1. **Backend API (FastAPI)**: Mesin analisis berbasis data empiris 400 video kreator top (@kaycee.onw, @dwrena, @reinwi, @hyutaoo).
+1. **Backend API (FastAPI)**: Mesin analisis berbasis kurva distribusi algoritma TikTok.
 2. **Web Dashboard**: Antarmuka visual modern (Glassmorphism dark theme) untuk simulasi dan scanner URL.
 3. **Browser Extension & Integration Module**: Ekstensi browser dan modul integrasi untuk ekstensi `Kaycee_Upload`.
 

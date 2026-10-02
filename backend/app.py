@@ -155,7 +155,7 @@ async def health_check():
     return {
         "status": "online",
         "engine": "Kaycee_AnalystFYP v1.2",
-        "dataset_baseline": "400 verified videos from top creators",
+        "dataset_baseline": "Trained empirical TikTok algorithm benchmarks",
         "median_benchmarks": BENCHMARKS
     }
 
