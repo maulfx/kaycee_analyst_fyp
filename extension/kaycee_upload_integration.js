@@ -279,6 +279,30 @@
     }
   }
 
+  
+  // Listener dari Tombol Sidebar TikTok (postMessage)
+  window.addEventListener("message", (event) => {
+    if (event.data && event.data.type === "KAYCEE_TRIGGER_ANALYST") {
+      isMinimized = false;
+      currentActiveId = null;
+      inspectCurrentVideo();
+    }
+  });
+
+  // Listener dari Popup Ekstensi
+  if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.onMessage) {
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      if (request.action === "GET_FYP_ANALYSIS" || request.action === "TRIGGER_ANALYST") {
+        isMinimized = false;
+        currentActiveId = null;
+        inspectCurrentVideo().then((res) => {
+          sendResponse({ success: true, data: res });
+        });
+        return true;
+      }
+    });
+  }
+
   // Fallback Formula Lokal
   function localCalculate(v) {
     const likeRate = (v.likes / v.views) * 100;
