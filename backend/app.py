@@ -268,6 +268,7 @@ async def analyze_tiktok_url(payload: UrlAnalyzeRequest):
     # 6. Kemas hasil final untuk langsung ditampilkan oleh Ekstensi
     return {
         "success": True,
+        "prediction": prediction,
         "probability_pct": prediction["probability_pct"],
         "status": prediction["status"],
         "status_label": prediction["status_label"],

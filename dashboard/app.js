@@ -99,7 +99,9 @@ function setupUrlScanner() {
         throw new Error(data.detail || 'Gagal memproses URL');
       }
 
-      renderPredictionResult(data.prediction, data.video_info);
+      const pred = data.prediction || data;
+      const info = data.video_info || { title: data.title || '', author: data.author || '' };
+      renderPredictionResult(pred, info);
     } catch (err) {
       alert(`⚠️ Error: ${err.message}`);
     } finally {
@@ -141,7 +143,8 @@ async function runManualPrediction(payload, label = "") {
 
 // ─── Render HUD Results ────────────────────────────────────────
 function renderPredictionResult(pred, info = {}) {
-  const prob = pred.probability_pct;
+  if (!pred) return;
+  const prob = pred.probability_pct !== undefined ? pred.probability_pct : (pred.score || 0);
   const scoreDisp = document.getElementById('scoreDisplay');
   const tierBadge = document.getElementById('tierBadge');
   const potentialViews = document.getElementById('potentialViewsDisplay');
@@ -157,7 +160,8 @@ function renderPredictionResult(pred, info = {}) {
   potentialViews.textContent = pred.potential_views;
   potentialViews.style.color = pred.badge_color;
 
-  summaryText.innerHTML = `<strong>${info.title || 'Video'}</strong> — ${pred.summary}`;
+  const ageBadge = (pred.lifecycle && pred.lifecycle.age_label) ? `<div style="margin-top:6px;font-size:0.85em;color:#00f2fe;">⏱️ <strong>Waktu Upload:</strong> ${pred.lifecycle.age_label} &nbsp;|&nbsp; <strong>Fase:</strong> ${pred.lifecycle.badge || ''}</div>` : '';
+  summaryText.innerHTML = `<strong>${info.title || info.author || 'Video'}</strong> — ${pred.summary}${ageBadge}`;
 
   // Circumference: 2 * PI * 82 = ~515.2
   const maxDash = 515.2;
