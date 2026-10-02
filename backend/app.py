@@ -115,10 +115,10 @@ def decode_snowflake_timestamp(video_id_str: str) -> dict:
 
     return {
         "timestamp": 0,
-        "age_hours": 2.0,
-        "age_label": "2.0 Jam Lalu",
+        "age_hours": 0.0,
+        "age_label": "Waktu upload tidak terdeteksi",
         "date_str": "",
-        "relative_label": "2.0 Jam Lalu"
+        "relative_label": "Waktu upload tidak terdeteksi"
     }
 
 
@@ -139,6 +139,7 @@ class ManualPredictRequest(BaseModel):
 
 class UrlAnalyzeRequest(BaseModel):
     url: str = Field(..., description="TikTok video URL (tiktok.com/@user/video/... or vt.tiktok.com/...)")
+    video_id: Optional[str] = None
     client_views: Optional[int] = None
     client_likes: Optional[int] = None
     client_comments: Optional[int] = None
@@ -201,9 +202,11 @@ async def analyze_tiktok_url(payload: UrlAnalyzeRequest):
 
     url = resolve_short_url(raw_url)
 
-    # 1. Ekstraksi Video ID dari URL (19 digit diawali angka 7)
-    id_match = re.search(r'\b(7\d{18})\b', url)
-    video_id = id_match.group(1) if id_match else ""
+    # 1. Ekstraksi Video ID dari payload langsung atau dari URL (19 digit diawali angka 7)
+    video_id = (payload.video_id or "").strip()
+    if not video_id:
+        id_match = re.search(r'\b(7\d{18})\b', url)
+        video_id = id_match.group(1) if id_match else ""
 
     # 2. Ekstraksi Username / Author dari URL
     author_match = re.search(r'@([\w.-]+)', url)
@@ -277,6 +280,9 @@ async def analyze_tiktok_url(payload: UrlAnalyzeRequest):
         "summary": prediction["summary"],
         "author": author,
         "video_id": video_id,
+        "upload_time_str": server_age_label,
+        "distribution_phase": prediction["lifecycle"]["badge"],
+        "verdict_summary": prediction["summary"],
         "lifecycle": {
             "age_hours": server_age_hours,
             "age_label": server_age_label,
