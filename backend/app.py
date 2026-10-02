@@ -50,8 +50,10 @@ class ManualPredictRequest(BaseModel):
     reposts: int = Field(0, ge=0, description="Total reposts/shares")
     saves: int = Field(0, ge=0, description="Total bookmarks/saves")
     comments: int = Field(0, ge=0, description="Total comments")
-    duration: float = Field(13.0, ge=1.0, description="Video duration in seconds")
-    age_hours: float = Field(2.0, ge=0.01, description="Hours elapsed since upload")
+    duration: Optional[float] = Field(13.0, description="Video duration in seconds")
+    duration_sec: Optional[float] = Field(None)
+    age_hours: Optional[float] = Field(2.0, description="Hours elapsed since upload")
+    hours_since_upload: Optional[float] = Field(None)
     title: Optional[str] = Field("", description="Video title and hashtags")
     track: Optional[str] = Field("", description="Audio track name")
 
@@ -84,14 +86,16 @@ async def get_benchmarks():
 @app.post("/api/predict")
 async def predict_from_metrics(payload: ManualPredictRequest):
     """Predict FYP probability from raw engagement numbers (used by Chrome Extension & Simulator)."""
+    effective_dur = payload.duration_sec if payload.duration_sec is not None else (payload.duration or 13.0)
+    effective_age = payload.hours_since_upload if payload.hours_since_upload is not None else (payload.age_hours or 2.0)
     result = predict_fyp(
         views=payload.views,
         likes=payload.likes,
         reposts=payload.reposts,
         saves=payload.saves,
         comments=payload.comments,
-        duration=payload.duration,
-        age_hours=payload.age_hours,
+        duration=effective_dur,
+        age_hours=effective_age,
         title=payload.title or "",
         track=payload.track or ""
     )
