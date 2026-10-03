@@ -193,25 +193,25 @@ def predict_fyp(
         status = "MEGA_FYP"
         status_label = "🚀 Mega Viral FYP Incoming"
         potential_views = "100,000 - 1,000,000+ Views"
-        badge_color = "#00f2fe"
+        badge_color = "#CEE36B"  # Dry Seedlings
         summary = f"Metrik luar biasa! Rasio Repost ({repost_rate:.1f}%) dan Save ({save_rate:.1f}%) berada di tier atas. {phase_desc}"
     elif probability_pct >= 55.0:
         status = "BREAKOUT_FYP"
         status_label = "🔥 FYP Breakout Phase"
         potential_views = "30,000 - 100,000 Views"
-        badge_color = "#10b981"
+        badge_color = "#AE7EFD"  # Purple Illusionist
         summary = f"Sinyal sangat positif! Rasio interaksi melampaui median akun. {phase_desc}"
     elif probability_pct >= 35.0:
         status = "AVERAGE"
         status_label = "⚡ Baseline / Average"
         potential_views = "8,000 - 25,000 Views"
-        badge_color = "#f59e0b"
+        badge_color = "#C2C6C9"  # Ash Blue
         summary = f"Performa di batas standar akun. {phase_desc}"
     else:
         status = "STAGNANT" if age_hours > 24.0 else "FLOP_RISK"
         status_label = "🛑 Distribusi Tertahan / Stagnant" if age_hours > 24.0 else "⚠️ Flop Risk / Kurang Requirement"
         potential_views = f"< {max(views, 3000):,} Views (Mendekati Batas Akhir)" if age_hours > 24.0 else "< 5,000 Views"
-        badge_color = "#ef4444"
+        badge_color = "#756B5F"  # Cocoa Powder
         summary = f"{phase_desc} Rasio engagement awal tidak cukup kuat untuk memicu batch distribusi lanjutan."
 
     # Actionable diagnostic recommendations

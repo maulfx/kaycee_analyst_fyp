@@ -2,22 +2,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-dark: #0c0e14;
-  --bg-panel: #151821;
-  --bg-panel-subtle: #1c202c;
-  --bg-panel-hover: #222736;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.16);
-  --border-focus: #00f2fe;
+  --bg-dark: #1B1A1B;
+  --bg-panel: #232224;
+  --bg-panel-subtle: #2c2b2d;
+  --bg-panel-hover: #363437;
+  --border-subtle: rgba(194, 198, 201, 0.12);
+  --border-hover: rgba(194, 198, 201, 0.28);
+  --border-focus: #AE7EFD;
 
-  --cyan: #00f2fe;
-  --cyan-subtle: rgba(0, 242, 254, 0.12);
-  --emerald: #10b981;
-  --rose: #ef4444;
+  --primary: #AE7EFD;
+  --cyan: #AE7EFD;
+  --cyan-subtle: rgba(174, 126, 253, 0.14);
+  --emerald: #CEE36B;
+  --rose: #756B5F;
 
-  --text-main: #f0f6fc;
-  --text-muted: #8b949e;
-  --text-dim: #6e7681;
+  --text-main: #F6F7F5;
+  --text-muted: #C2C6C9;
+  --text-dim: #756B5F;
 
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -25,7 +26,7 @@
   --radius-md: 10px;
   --radius-sm: 6px;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --liquid-rim: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --liquid-rim: inset 0 1px 0 rgba(246, 247, 245, 0.08);
 }
 
 * {
@@ -116,15 +117,16 @@ body {
 
 .btn-scan {
   width: 100%;
-  background: var(--cyan);
-  color: #041014;
-  border: 1px solid var(--cyan);
+  background: var(--primary);
+  color: #1B1A1B;
+  border: 1px solid var(--primary);
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   font-weight: 700;
   font-size: 13px;
   font-family: var(--font-sans);
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(174, 126, 253, 0.3);
   transition: all 0.16s var(--ease-out);
 }
 
@@ -196,7 +198,7 @@ body {
   font-weight: 700;
   color: var(--cyan);
   background: var(--cyan-subtle);
-  border: 1px solid rgba(0, 242, 254, 0.25);
+  border: 1px solid rgba(174, 126, 253, 0.25);
   padding: 2px 10px;
   border-radius: 999px;
   margin-bottom: 6px;

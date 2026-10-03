@@ -135,7 +135,7 @@ function fallbackLocalPredict(p) {
     probability_pct: prob,
     status_label: prob >= 70 ? "🚀 MEGA FYP" : prob >= 50 ? "📈 BREAKOUT" : "🟡 BASELINE",
     potential_views: prob >= 70 ? "100k - 500k+ Views" : prob >= 50 ? "30k - 80k Views" : "5k - 20k Views",
-    badge_color: prob >= 70 ? "#00f2fe" : prob >= 50 ? "#10b981" : "#f59e0b",
+    badge_color: prob >= 70 ? "#CEE36B" : prob >= 50 ? "#AE7EFD" : "#C2C6C9",
     summary: prob >= 70 ? "Sinyal repost dan like sangat kuat!" : "Performa video rata-rata stabil.",
     metrics: {
       views: p.views,

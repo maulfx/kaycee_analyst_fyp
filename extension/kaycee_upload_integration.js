@@ -203,7 +203,7 @@
     if (!host) return;
 
     const prob = data.probability_pct;
-    const color = data.badge_color || (prob >= 75 ? "#00f2fe" : prob >= 55 ? "#10b981" : prob >= 35 ? "#f59e0b" : "#ef4444");
+    const color = data.badge_color || (prob >= 75 ? "#CEE36B" : prob >= 55 ? "#AE7EFD" : prob >= 35 ? "#C2C6C9" : "#756B5F");
 
     if (isMinimized) {
       host.innerHTML = `
@@ -315,7 +315,7 @@
       probability_pct: prob,
       status_label: prob >= 75 ? "🚀 MEGA FYP" : prob >= 55 ? "🔥 BREAKOUT" : "⚡ BASELINE",
       potential_views: prob >= 75 ? "100k - 500k+ Views" : prob >= 55 ? "30k - 100k Views" : "5k - 20k Views",
-      badge_color: prob >= 75 ? "#00f2fe" : prob >= 55 ? "#10b981" : "#f59e0b",
+      badge_color: prob >= 75 ? "#CEE36B" : prob >= 55 ? "#AE7EFD" : prob >= 35 ? "#C2C6C9" : "#756B5F",
       metrics: {
         like_rate: Math.round(likeRate * 10) / 10,
         save_rate: Math.round(saveRate * 10) / 10,
@@ -337,15 +337,15 @@
       user-select: none;
     }
     .kaycee-fyp-card {
-      background: rgba(11, 15, 25, 0.94);
-      border: 1.5px solid #00f2fe;
+      background: rgba(27, 26, 27, 0.94);
+      border: 1.5px solid #AE7EFD;
       border-radius: 14px;
       padding: 14px;
       width: 270px;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      color: #fff;
+      color: #F6F7F5;
     }
     .kaycee-fyp-card.loading {
       display: flex;
@@ -354,7 +354,7 @@
       padding: 10px 14px;
       width: auto;
       font-size: 12px;
-      color: #94a3b8;
+      color: #C2C6C9;
     }
     .card-top {
       display: flex;
@@ -369,13 +369,13 @@
     }
     .logo-bolt {
       font-size: 15px;
-      color: #00f2fe;
+      color: #CEE36B;
     }
     .brand-title {
       font-size: 11px;
       font-weight: 800;
       letter-spacing: -0.2px;
-      color: #f8fafc;
+      color: #F6F7F5;
     }
     .tier-tag {
       font-size: 9px;
@@ -423,7 +423,7 @@
     }
     .score-sub {
       font-size: 9px;
-      color: #64748b;
+      color: #C2C6C9;
       text-transform: uppercase;
       font-weight: 600;
     }
@@ -433,7 +433,7 @@
     .reach-label {
       display: block;
       font-size: 9px;
-      color: #64748b;
+      color: #C2C6C9;
       text-transform: uppercase;
     }
     .reach-val {
@@ -455,12 +455,12 @@
     .mini-stat span {
       display: block;
       font-size: 9px;
-      color: #64748b;
+      color: #C2C6C9;
     }
     .mini-stat strong {
       font-size: 11px;
       font-family: monospace;
-      color: #fff;
+      color: #F6F7F5;
     }
     .card-footer {
       border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -469,7 +469,7 @@
     }
     .dashboard-link {
       font-size: 10px;
-      color: #00f2fe;
+      color: #AE7EFD;
       text-decoration: none;
       font-weight: 600;
     }
@@ -477,8 +477,8 @@
       text-decoration: underline;
     }
     .kaycee-fyp-minimized {
-      background: rgba(11, 15, 25, 0.92);
-      border: 1.5px solid #00f2fe;
+      background: rgba(27, 26, 27, 0.92);
+      border: 1.5px solid #AE7EFD;
       border-radius: 50px;
       padding: 6px 12px;
       display: flex;

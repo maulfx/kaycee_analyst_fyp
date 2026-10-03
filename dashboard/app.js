@@ -231,15 +231,15 @@ async function checkApiHealth() {
   try {
     const res = await fetch(`${API_BASE}/api/health`);
     if (res.ok) {
-      dot.style.background = '#10b981';
-      dot.style.boxShadow = '0 0 10px #10b981';
+      dot.style.background = '#CEE36B';
+      dot.style.boxShadow = '0 0 10px #CEE36B';
       label.textContent = t.engine_online || 'Engine Online';
     } else {
       throw new Error();
     }
   } catch {
-    dot.style.background = '#f59e0b';
-    dot.style.boxShadow = '0 0 10px #f59e0b';
+    dot.style.background = '#756B5F';
+    dot.style.boxShadow = '0 0 10px #756B5F';
     label.textContent = t.engine_offline || 'Engine Offline (Demo Mode)';
   }
 }
@@ -372,7 +372,7 @@ function renderPredictionResult(pred, info = {}) {
       else if (phaseStr.includes('TESTING') || phaseStr.includes('Initial')) phaseStr = "⚡ Initial Batch";
     }
 
-    ageBadge = `<div style="margin-top:6px;font-size:0.85em;color:#00f2fe;">⏱️ <strong>${t.upload_time_lbl}:</strong> ${ageStr} &nbsp;|&nbsp; <strong>${t.phase_lbl}:</strong> ${phaseStr}</div>`;
+    ageBadge = `<div style="margin-top:6px;font-size:0.85em;color:#AE7EFD;">⏱️ <strong>${t.upload_time_lbl}:</strong> ${ageStr} &nbsp;|&nbsp; <strong>${t.phase_lbl}:</strong> ${phaseStr}</div>`;
   }
 
   let summaryContent = pred.summary || '';

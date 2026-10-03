@@ -2,38 +2,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Hallmark Tactile Palette */
-  --bg-dark: #0c0e14;
-  --bg-panel: #151821;
-  --bg-panel-subtle: #1c202c;
-  --bg-panel-hover: #222736;
-  --bg-input: #10131a;
+  /* Hallmark Tactile Palette · Kaycee Signature 6-Swatch */
+  --lynx-white: #F6F7F5;
+  --seedling: #CEE36B;
+  --ash-blue: #C2C6C9;
+  --purple-illusion: #AE7EFD;
+  --cocoa-powder: #756B5F;
+  --eerie-black: #1B1A1B;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.16);
-  --border-focus: #00f2fe;
+  /* Surfaces & Backgrounds */
+  --bg-dark: #1B1A1B;
+  --bg-panel: #232224;
+  --bg-panel-subtle: #2c2b2d;
+  --bg-panel-hover: #363437;
+  --bg-input: #151415;
 
-  --cyan: #00f2fe;
-  --cyan-subtle: rgba(0, 242, 254, 0.12);
-  --cyan-border: rgba(0, 242, 254, 0.28);
+  /* Borders */
+  --border-subtle: rgba(194, 198, 201, 0.12);
+  --border-hover: rgba(194, 198, 201, 0.28);
+  --border-focus: #AE7EFD;
 
-  --magenta: #fe2c55;
-  --magenta-subtle: rgba(254, 44, 85, 0.12);
-  --magenta-border: rgba(254, 44, 85, 0.28);
+  /* Primary Brand (Purple Illusionist) */
+  --primary: #AE7EFD;
+  --cyan: #AE7EFD; /* mapped so existing tokens inherit Purple Illusionist */
+  --cyan-subtle: rgba(174, 126, 253, 0.14);
+  --cyan-border: rgba(174, 126, 253, 0.32);
 
-  --emerald: #10b981;
-  --emerald-subtle: rgba(16, 185, 129, 0.12);
-  --emerald-border: rgba(16, 185, 129, 0.28);
+  /* Secondary Energetic / Viral (Dry Seedlings) */
+  --emerald: #CEE36B;
+  --emerald-subtle: rgba(206, 227, 107, 0.14);
+  --emerald-border: rgba(206, 227, 107, 0.32);
 
-  --amber: #f59e0b;
-  --amber-subtle: rgba(245, 158, 11, 0.12);
-  --amber-border: rgba(245, 158, 11, 0.28);
+  /* Warm Neutral Accent (Cocoa Powder) */
+  --magenta: #756B5F;
+  --magenta-subtle: rgba(117, 107, 95, 0.18);
+  --magenta-border: rgba(117, 107, 95, 0.35);
 
-  --rose: #ef4444;
+  /* Cool Neutral Accent (Ash Blue) */
+  --amber: #C2C6C9;
+  --amber-subtle: rgba(194, 198, 201, 0.14);
+  --amber-border: rgba(194, 198, 201, 0.3);
 
-  --text-main: #f0f6fc;
-  --text-muted: #8b949e;
-  --text-dim: #6e7681;
+  --rose: #756B5F;
+
+  /* Typography */
+  --text-main: #F6F7F5;
+  --text-muted: #C2C6C9;
+  --text-dim: #756B5F;
 
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -42,7 +57,7 @@
   --radius-md: 10px;
   --radius-sm: 6px;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --liquid-rim: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --liquid-rim: inset 0 1px 0 rgba(246, 247, 245, 0.08);
 }
 
 * {
@@ -62,8 +77,9 @@ body.dark-theme {
   font-family: var(--font-sans);
   min-height: 100vh;
   line-height: 1.55;
-  background-image: radial-gradient(120% 80% at 50% -20%, rgba(0, 242, 254, 0.06) 0%, transparent 60%),
-                    linear-gradient(180deg, #0e1117 0%, #0c0e14 100%);
+  background-image: radial-gradient(120% 80% at 50% -20%, rgba(174, 126, 253, 0.09) 0%, transparent 60%),
+                    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(206, 227, 107, 0.05) 0%, transparent 50%),
+                    linear-gradient(180deg, #242224 0%, #1B1A1B 100%);
   background-attachment: fixed;
 }
 
@@ -98,7 +114,7 @@ body.dark-theme {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(12, 14, 20, 0.85);
+  background: rgba(27, 26, 27, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
@@ -269,9 +285,9 @@ body.dark-theme {
   color: var(--text-main);
 }
 
-.pill-val.cyan { color: var(--cyan); }
-.pill-val.emerald { color: var(--emerald); }
-.pill-val.magenta { color: var(--magenta); }
+.pill-val.cyan { color: var(--purple-illusion); }
+.pill-val.emerald, .pill-val.green { color: var(--seedling); }
+.pill-val.magenta { color: var(--ash-blue); }
 
 /* --- Input / Scanner Section --- */
 .scanner-card {
@@ -365,10 +381,10 @@ body.dark-theme {
 .btn-primary {
   height: 48px;
   padding: 0 24px;
-  background: var(--cyan);
-  border: 1px solid var(--cyan);
+  background: var(--primary);
+  border: 1px solid var(--primary);
   border-radius: var(--radius-md);
-  color: #041014;
+  color: #1B1A1B;
   font-size: 14px;
   font-weight: 700;
   font-family: var(--font-sans);
@@ -377,11 +393,14 @@ body.dark-theme {
   align-items: center;
   gap: 8px;
   white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(174, 126, 253, 0.35);
   transition: all 0.16s var(--ease-out);
 }
 
 .btn-primary:hover {
-  opacity: 0.92;
+  background: #bd96fe;
+  border-color: #bd96fe;
+  box-shadow: 0 6px 20px rgba(174, 126, 253, 0.5);
   transform: translateY(-1px);
 }
 
@@ -392,8 +411,8 @@ body.dark-theme {
 .btn-spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(4, 16, 20, 0.25);
-  border-top-color: #041014;
+  border: 2px solid rgba(27, 26, 27, 0.25);
+  border-top-color: #1B1A1B;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
