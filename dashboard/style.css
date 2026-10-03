@@ -67,6 +67,13 @@
   -webkit-font-smoothing: antialiased;
 }
 
+button, input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+}
+
 html, body {
   overflow-x: clip;
 }
@@ -329,28 +336,37 @@ body.dark-theme {
   max-width: 68ch;
 }
 
+.scanner-form,
 .input-row {
   display: flex;
-  gap: 10px;
-  margin-bottom: 14px;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  width: 100%;
 }
 
+.input-wrapper,
 .input-box-wrap {
   flex: 1;
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
+.input-prefix,
 .input-icon {
   position: absolute;
   left: 14px;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-dim);
   pointer-events: none;
+  z-index: 2;
 }
 
-.input-box-wrap input {
+.input-wrapper input,
+.input-box-wrap input,
+#tiktokUrlInput {
   width: 100%;
   height: 48px;
   padding: 0 16px 0 42px;
@@ -362,19 +378,27 @@ body.dark-theme {
   color: var(--text-main);
   outline: 2px solid transparent;
   outline-offset: 1px;
-  transition: border-color 0.16s var(--ease-out);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: all 0.16s var(--ease-out);
 }
 
-.input-box-wrap input:hover {
+.input-wrapper input:hover,
+.input-box-wrap input:hover,
+#tiktokUrlInput:hover {
   border-color: var(--border-hover);
 }
 
-.input-box-wrap input:focus {
+.input-wrapper input:focus,
+.input-box-wrap input:focus,
+#tiktokUrlInput:focus {
   border-color: var(--border-focus);
   outline: 2px solid var(--border-focus);
+  box-shadow: 0 0 0 3px var(--cyan-subtle), inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-.input-box-wrap input::placeholder {
+.input-wrapper input::placeholder,
+.input-box-wrap input::placeholder,
+#tiktokUrlInput::placeholder {
   color: var(--text-dim);
 }
 
@@ -408,6 +432,7 @@ body.dark-theme {
   transform: translateY(1px);
 }
 
+.spinner,
 .btn-spinner {
   width: 16px;
   height: 16px;
@@ -415,33 +440,45 @@ body.dark-theme {
   border-top-color: #1B1A1B;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
+  display: none;
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
+.sample-actions,
 .sample-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   font-size: 12px;
   color: var(--text-dim);
 }
 
+.sample-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.btn-chip,
 .btn-sample {
   background: var(--bg-panel-subtle);
   border: 1px solid var(--border-subtle);
   color: var(--text-muted);
-  padding: 5px 11px;
+  padding: 6px 14px;
   border-radius: var(--radius-sm);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
+  font-family: var(--font-sans);
   cursor: pointer;
-  transition: all 0.14s var(--ease-out);
+  box-shadow: var(--liquid-rim);
+  transition: all 0.16s var(--ease-out);
 }
 
+.btn-chip:hover,
 .btn-sample:hover {
   background: var(--bg-panel-hover);
   border-color: var(--border-hover);
@@ -449,6 +486,7 @@ body.dark-theme {
   transform: translateY(-1px);
 }
 
+.btn-chip:active,
 .btn-sample:active {
   transform: translateY(1px);
 }
@@ -899,8 +937,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
   .scanner-card, .simulator-card {
     padding: 20px 16px;
   }
+  .scanner-form,
   .input-row {
     flex-direction: column;
+    align-items: stretch;
   }
   .ratios-grid {
     grid-template-columns: 1fr 1fr;
